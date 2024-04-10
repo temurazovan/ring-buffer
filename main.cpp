@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 void printVector(std::vector<int> vector) {
     for (int i = 0; i < vector.size(); i++) {
@@ -13,20 +14,15 @@ int main() {
 
     std::cout << "Input up to 20 elements: ";
 
-    std::cin >> value;
-    while (value != -1) {
-        if (vec.size() < 20) {
-            vec.push_back(value);
-        } else {
-            for (int i = 0; i < 20; i++) {
-                vec[i] = vec[i + 1];
-                vec[vec.size() - 1] = value;
-            }
-        }
-        while (vec.size() > 20){
-            vec.pop_back();
-        }
+    while (true) {
         std::cin >> value;
+        if (value == -1) {
+            break;
+        }
+        if (vec.size() >= 20) {
+            vec.erase(vec.begin());
+        }
+        vec.push_back(value);
     }
 
     printVector(vec);
